@@ -159,7 +159,3 @@ ax.yaxis.grid(True)
 ax.set_axisbelow(True)
 plt.xticks(rotation=45)
 plt.show()
-
-
-#%%
-[0]*len(drug)
