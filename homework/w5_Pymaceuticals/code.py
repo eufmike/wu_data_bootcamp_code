@@ -7,10 +7,10 @@ from cycler import cycler
 import time
 
 # office
-# path = '/Users/michaelshih/Documents/code/education/wu_data_bootcamp_code/homework/w5_Pymaceuticals'
+path = '/Users/michaelshih/Documents/code/education/wu_data_bootcamp_code/homework/w5_Pymaceuticals'
 
 # laptop
-path = '/Users/major_minor1982/Documents/code/Python/wu_data_bootcamp_code/homework/w5_Pymaceuticals'
+# path = '/Users/major_minor1982/Documents/code/Python/wu_data_bootcamp_code/homework/w5_Pymaceuticals'
 
 # load data
 subfolder = 'data'
