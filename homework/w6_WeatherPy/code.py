@@ -2,6 +2,7 @@
 import os, sys
 import numpy as np
 import pandas as pd
+import scipy
 import matplotlib.pyplot as plt
 from cycler import cycler
 import time
@@ -29,12 +30,14 @@ samplesize = 1500
 lat_lngs = []
 cities = []
 # Create a set of random lat and lng combination
+'''
 lats = np.random.uniform(low = lat_range[0], high = lat_range[1], size = samplesize)
 lngs = np.random.uniform(low = lng_range[0], high = lng_range[1], size = samplesize)
 '''
-scipy.stats.uniform.rvs(loc = 0, scale = Dx, size = ((N, 1)), random_state=seed)
-scipy.stats.uniform.rvs(loc = 0, scale = Dx, size = ((N, 1)), random_state=seed)
-'''
+
+lats = scipy.stats.uniform.rvs(loc = 0, scale = Dx, size = ((N, 1)), random_state=seed)
+lngs = scipy.stats.uniform.rvs(loc = 0, scale = Dx, size = ((N, 1)), random_state=seed)
+
 lat_lngs = zip(lats, lngs)
 
 for lat_lng in lat_lngs:
