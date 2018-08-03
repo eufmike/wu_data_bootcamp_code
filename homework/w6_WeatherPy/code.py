@@ -8,8 +8,8 @@ Your objective is to build a series of scatter plots to showcase the following r
 * Humidity (%) vs. Latitude
 * Cloudiness (%) vs. Latitude
 * Wind Speed (mph) vs. Latitude
-
 '''
+
 # %%
 # Dependency
 import os, sys
@@ -26,9 +26,9 @@ import tqdm
 
 # Specify directory and set the workspace
 # office
-path = '/Users/michaelshih/Documents/code/education/wu_data_bootcamp_code/homework/w6_WeatherPy'
+# path = '/Users/michaelshih/Documents/code/education/wu_data_bootcamp_code/homework/w6_WeatherPy'
 # laptop
-# path = '/Users/major_minor1982/Documents/code/Python/wu_data_bootcamp_code/homework/w6_WeatherPy'
+path = '/Users/major_minor1982/Documents/code/Python/wu_data_bootcamp_code/homework/w6_WeatherPy'
 os.chdir(path)
 
 # import api keys and use imp module to reload
@@ -59,7 +59,6 @@ def randomcitycoor(lat_range, lng_range, samplesize, seed = None):
 # Generate the list of cities according to the coordinates.
 '''
 # %%
-# set seed
 seed = 1999
 
 # define the range of latitudes and longitude and samplesize
@@ -183,28 +182,40 @@ data.to_csv(outpath, index_label = None)
 '''
 
 # %% 
-# Retrive date from data datetime
-print(data['Date'][0])
+# Retrive current date from sytem datetime
 import datetime
-datadate = datetime.datetime.fromtimestamp(int(data['Date'][0])).strftime('%Y-%m-%d %H:%M:%S')
-datadate
+now = datetime.datetime.now()
+datatime = now.strftime("%m/%d/%y")
+print(datatime)
 
 # %%
 p1 = plt.figure()
-plt.scatter(data['Latitude'], data['Temperature (F)'])
+plt.scatter(x = data['Latitude'], y = data['Temperature (F)'], alpha = 0.3)
+plt.title('City Latitude vs. Temperature ' + datatime)
+plt.xlabel('Latitude')
+plt.ylabel('Temperature ($^\circ$F)')
 p1.show()
 
 # %%
 p2 = plt.figure()
-plt.scatter(data['Latitude'], data['Humidity (%)'])
+plt.scatter(x = data['Latitude'], y = data['Humidity (%)'], alpha = 0.3)
+plt.title('City Latitude vs. Humidity ' + datatime)
+plt.xlabel('Latitude')
+plt.ylabel('Humidity (%)')
 p2.show()
 
 # %%
 p3 = plt.figure()
-plt.scatter(data['Latitude'], data['Cloudiess (%)'])
+plt.scatter(x = data['Latitude'], y = data['Cloudiess (%)'], alpha = 0.3)
+plt.title('City Latitude vs. Cloudiess ' + datatime)
+plt.xlabel('Latitude')
+plt.ylabel('Cloudiess (%)')
 p3.show()
 
 # %%
 p4 = plt.figure()
-plt.scatter(data['Latitude'], data['Wind Speed (mph)'])
+plt.scatter(data['Latitude'], data['Wind Speed (mph)'], alpha = 0.3)
+plt.title('City Latitude vs. Wind Speed ' + datatime)
+plt.xlabel('Latitude')
+plt.ylabel('Wind Speed (mph)')
 p4.show()
