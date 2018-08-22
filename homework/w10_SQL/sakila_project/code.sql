@@ -116,3 +116,6 @@ WHERE first_name = 'GROUCHO';
 /* You cannot locate the schema of the address table. Which query would you use 
 to re-create it? */
 
+USE sakila;
+SHOW CREATE TABLE address;
+
