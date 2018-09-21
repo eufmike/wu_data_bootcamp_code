@@ -1,6 +1,6 @@
 # %%
 # ----------------------------------------------------------------------------------------------------------------
-# Render_Dict
+# 1. Render_Dict
 # import necessary libraries
 from flask import Flask, render_template
 
@@ -12,7 +12,7 @@ app = Flask(__name__)
 def index():
     player_dictionary = {"player_1": "Jessica",
                          "player_2": "Mark"}
-    return render_template("index.html", dict=player_dictionary)
+    return render_template("index_01.html", dict=player_dictionary)
 
 
 if __name__ == "__main__":
@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
 # %%
 # ----------------------------------------------------------------------------------------------------------------
-# Render_From_Mongo
+# 2. Render_From_Mongo
 from flask import Flask, render_template
 
 # Import our pymongo library, which lets us connect our Flask app to our Mongo database.
@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
 # %%
 # ----------------------------------------------------------------------------------------------------------------
-# Render_List
+# 3. Render_List
 
 # import necessary libraries
 from flask import Flask, render_template
@@ -85,7 +85,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     team_list = ["Jumpers", "Dunkers", "Dribblers", "Passers"]
-    return render_template("index.html", list=team_list)
+    return render_template("index_03.html", list=team_list)
 
 
 if __name__ == "__main__":
@@ -93,7 +93,7 @@ if __name__ == "__main__":
 
 # %%
 # ----------------------------------------------------------------------------------------------------------------
-# Render_String
+# 4. Render_String
 # import necessary libraries
 from flask import Flask, render_template
 
@@ -104,7 +104,7 @@ app = Flask(__name__)
 # create route that renders index.html template
 @app.route("/")
 def echo():
-    return render_template("index.html", text="Serving up cool text from the Flask server!!")
+    return render_template("index_04.html", text="Serving up cool text from the Flask server!!")
 
 
 if __name__ == "__main__":
@@ -112,7 +112,7 @@ if __name__ == "__main__":
 
 # %%
 # ----------------------------------------------------------------------------------------------------------------
-# Scrape_And_Render
+# 5. Scrape_And_Render
 # app.py
 from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
@@ -145,6 +145,8 @@ def scraper():
 if __name__ == "__main__":
     app.run(debug=True)
 
+# ----------------------------------------------------------------------------------------------------------------
+# 5-2
 # scrape_craiglist.py
 from splinter import Browser
 from bs4 import BeautifulSoup
