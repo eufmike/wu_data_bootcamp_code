@@ -9,6 +9,8 @@ import pymongo
 import pandas as pd
 from splinter import Browser
 
+# ================================================================
+
 # Step 1 - Scraping
 # ----------------------------------------------------------------
 # 01 Scrape the [NASA Mars News Site](https://mars.nasa.gov/news/) 
@@ -193,3 +195,4 @@ print(hemisphere_image_urls)
 # the mars data dictionary and display all of the data in the appropriate 
 # HTML elements. Use the following as a guide for what the final product 
 # should look like, but feel free to create your own design.
+
