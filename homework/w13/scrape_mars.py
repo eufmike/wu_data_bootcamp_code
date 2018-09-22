@@ -2,57 +2,53 @@ from splinter import Browser
 from bs4 import BeautifulSoup as bs
 import pandas as pd
 import datetime as dt
-from selenium import webdriver
 import requests
 
 def scrape_all():
     # Initiate headless driver for deployment
-    browser = Browser("chrome", executable_path="/Users/michaelshih/anaconda3/envs/wudata/bin/chromedriver", headless=True)
-    news_title, news_paragraph = mars_news(browser)
-    
-    driver = webdriver.Chrome(executable_path = "/Users/michaelshih/anaconda3/envs/wudata/bin/chromedriver")
-    
+    browser = Browser("chrome", executable_path = "/anaconda3/envs/wudata/bin/chromedriver", headless=True)
+
     # 1. mars_news
-    news_title, news_p = mars_news(driver)    
-    print(news_title)
-    print(news_p)
+    news_title, news_p = mars_news(browser)    
+    # print(news_title)
+    # print(news_p)
 
     # 2. featured_image
     featured_image_url = featured_image(browser)
-    print(featured_image_url)
+    # print(featured_image_url)
 
     # 3. hemispheres
     hemisphere_image_urls = hemispheres()
-    print(hemisphere_image_urls)
+    # print(hemisphere_image_urls)
 
     # 4. mars_weather
     mars_weather = twitter_weather()
-    print(mars_weather)
+    # print(mars_weather)
 
     # 5. mars_facts
     mars_facts_table = mars_facts()
-    print(mars_facts_table)
+    # print(mars_facts_table)
 
     # Stop webdriver and return data
     browser.quit()
-    driver.quit()
     # return data
     final_data = {
         'news_title': news_title,
         'news_p': news_p,
         'featured_image_url': featured_image_url, 
         'hemisphere_image_urls': hemisphere_image_urls, 
-        'mars_weather': mars_facts_table
+        'mars_weather': mars_weather, 
+        'mars_facts': mars_facts_table
     }
     return final_data
 
-def mars_news(driver):   
+def mars_news(browser):   
     # use selenium control google chromedriver
     url ='https://mars.nasa.gov/news/'
-    driver.get(url)
-    html = driver.page_source
+    browser.visit(url)
+    html = browser.html
     soup = bs(html, 'lxml')
-
+    
     news_title = soup.find('div', 'content_title', 'a').text
     news_p = soup.find('div', 'rollover_description_inner').text
     
@@ -66,7 +62,7 @@ def featured_image(browser):
     html = browser.html
     browser.quit()
     soup = bs(html, "lxml")
-    print(soup.prettify())
+    # print(soup.prettify())
 
 
     image_url = soup.findAll('a', class_="fancybox")
@@ -136,7 +132,8 @@ def mars_facts():
     tables = pd.read_html(url)[0]
     tables.columns = ['description', 'value']
     tables.set_index('description', inplace=True)
-    return tables
+    # html_table = tables.to_html()
+    return tables.to_html()
 
 
 if __name__ == "__main__":

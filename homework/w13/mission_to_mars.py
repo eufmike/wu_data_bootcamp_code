@@ -31,15 +31,27 @@ print(soup.prettify())
 '''
 
 # %%
+'''
+# use Selenium
 from selenium import webdriver
-driver = webdriver.Chrome(executable_path = "/Users/michaelshih/anaconda3/envs/wudata/bin/chromedriver")
+driver = webdriver.Chrome(executable_path = "/anaconda3/envs/wudata/bin/chromedriver")
 url ='https://mars.nasa.gov/news/'
 driver.get(url)
 html = driver.page_source
 driver.quit()
 # print(html)
 soup = bs(html, 'lxml')
-print(soup.prettify())
+# print(soup.prettify())
+'''
+
+# %%
+# use Splinter
+browser = Browser("chrome", executable_path = "/anaconda3/envs/wudata/bin/chromedriver", headless=True)
+url ='https://mars.nasa.gov/news/'
+browser.visit(url)
+html = browser.html
+browser.quit()
+soup = bs(html, 'lxml')
 
 # %%
 news_title = soup.find('div', 'content_title', 'a').text

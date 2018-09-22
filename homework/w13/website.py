@@ -19,23 +19,18 @@
 # the mars data dictionary and display all of the data in the appropriate 
 # HTML elements. Use the following as a guide for what the final product 
 # should look like, but feel free to create your own design.
-
 # %%
 # dependency
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
 from bs4 import BeautifulSoup as bs
-import pymongo
 from splinter import Browser
 import pandas as pd
 import datetime as dt
+from imp import reload
 import scrape_mars 
-
-# %%
-
-data = scrape_mars()
-
-
+reload(scrape_mars)
+import time
 # %%
 # create instance of Flask app
 app = Flask(__name__)
@@ -46,16 +41,18 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def index():
-    
-    return render_template('index.html', listings = listings)
+    marsinfo = mongo.db.marsinfo.find_one()
+    return render_template('index.html', marsinfo = marsinfo)
 
 @app.route('/scrape')
 def scraper():
-    listings = mongo.db.listings
-    listings_data = scrape_craigslist.scrape()
-    listings.update({}, listings_data, upsert=True)
+    print('scraper start')
+    marsinfo = mongo.db.marsinfo
+    marsinfo_data = scrape_mars.scrape_all()
+    #time.sleep(30)
+    print(marsinfo_data)
+    marsinfo.update({}, marsinfo_data, upsert=True)
     return redirect("/", code=302)
-
 
 if __name__ == "__main__":
     app.run(debug=True)
