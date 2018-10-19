@@ -16,16 +16,33 @@ var lightmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png
 lightmap.addTo(myMap); 
 
 //create function for add earthquake bubbles
-function createMarkers(earthquakes){
-  var incidents = earthquakes.features.geometry;
-  var bikeMarkers = [];
-  for (var index = 0; index < incidents.length; index++) {
-    var bikeMarker = L.marker([incidents.coordinates[0], incidents.coordinates[1]]);
-    bikeMarkers.push(bikeMarker);
-  };
 
-};
 
 //load data
 var url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
-d3.json(url, createMarkers);
+d3.json(url, function(data){
+  var myLayer = L.geoJSON(data);
+
+  myLayer.addTo(myMap);
+});
+
+
+
+
+
+/*
+var incidents = data.features;
+    console.log(incidents);
+    var bikeMarkers = [];
+
+
+for (var index = 0; index < incidents.length; index++) {
+  var incident = incidents[index];
+
+  var bikeMarker = L.marker([incident.coordinates[0], incident.coordinates[1]]);
+  bikeMarkers.push(bikeMarker);
+};
+createMap(L.layerGroup(bikeMarkers));
+};
+
+*/
