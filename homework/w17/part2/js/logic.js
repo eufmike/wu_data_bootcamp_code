@@ -15,8 +15,8 @@ function getColor(d){
 var earthquakes = new L.LayerGroup();
 
 //load data
-//var url_earthquakes = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
-var url_earthquakes = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson';
+var url_earthquakes = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
+//var url_earthquakes = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson';
 d3.json(url_earthquakes, function(data){
   L.geoJSON(data, {
     pointToLayer: function(feature, latlng) {
