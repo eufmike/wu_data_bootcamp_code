@@ -1,10 +1,9 @@
- 
-function buildPanel1(team) {
+ function buildPanel1(team) {
 
   // @TODO: Complete the following function that builds the metadata panel
   // Create the url for team info
   var team_url_1 = "./baseballteam/" + team;
-
+  console.log(team_url_1)
   // Use `.html("") to clear any existing team info
   d3.select('#panel-one').html('');
   
@@ -60,35 +59,118 @@ function buildPanel2(team) {
     });
   }
 
-function packagedata(team1, team2){
-  buildradarplot(team1, team2);
-}
-
 function buildradarplot(team1, team2){
   // Create the url for team stat
   console.log("load team stat")
-  var team_url_1 = "./baseballstat/" + team1 + ".json";
-  var team_url_2 = "./baseballstat/" + team2 + ".json";
-  console.log(team_url_1);
-  console.log(team_url_2);
+  var team_url = "./baseballstat/teamstat.json";
+  console.log(team_url);
+  
+  d3.select('#radarplot').html('');
+  
   // clear any existing team info
-  test = d3.json(team_url_1, function(json){
-    console.log(json);
+  d3.json(team_url).then(function(json){
+    team = json['Tm'];
+    console.log(team);
+    var team_1_idx = team.indexOf(team1);
+    console.log(team_1_idx);
+    var team_2_idx = team.indexOf(team2);
+    console.log(team_2_idx);
+    
+    var Bat_BA_arr = json['Bat_BA'];
+    var Bat_OBP_arr = json['Bat_OBP'];
+    var Bat_SLG_arr = json['BatSLG'];
+    var Bat_OPS_arr = json['Bat_OPS'];
+
+    var Bat_BA_range = [Math.min(...Bat_BA_arr), Math.max(...Bat_BA_arr)];
+    var Bat_OBP_range = [Math.min(...Bat_OBP_arr), Math.max(...Bat_OBP_arr)];
+    var Bat_SLG_range = [Math.min(...Bat_SLG_arr), Math.max(...Bat_SLG_arr)];
+    var Bat_OPS_range = [Math.min(...Bat_OPS_arr), Math.max(...Bat_OPS_arr)];
+    console.log(Bat_BA_range);
+    console.log(Bat_OBP_range);
+    console.log(Bat_SLG_range);
+    console.log(Bat_OPS_range);
+
+    var team_1_data = [
+                  (json['Bat_BA'][team_1_idx] - Bat_BA_range[0])/(Bat_BA_range[1] - Bat_BA_range[0])*100, 
+                  (json['Bat_OBP'][team_1_idx] - Bat_OBP_range[0])/(Bat_OBP_range[1] - Bat_OBP_range[0])*100, 
+                  (json['BatSLG'][team_1_idx] - Bat_SLG_range[0])/(Bat_SLG_range[1] - Bat_SLG_range[0])*100, 
+                  (json['Bat_OPS'][team_1_idx] - Bat_OPS_range[0])/(Bat_OPS_range[1] - Bat_OPS_range[0])*100
+                ];
+    console.log(team_1_data);
+    var team_2_data = [
+                  (json['Bat_BA'][team_2_idx] - Bat_BA_range[0])/(Bat_BA_range[1] - Bat_BA_range[0])*100, 
+                  (json['Bat_OBP'][team_2_idx] - Bat_OBP_range[0])/(Bat_OBP_range[1] - Bat_OBP_range[0])*100, 
+                  (json['BatSLG'][team_2_idx] - Bat_SLG_range[0])/(Bat_SLG_range[1] - Bat_SLG_range[0])*100, 
+                  (json['Bat_OPS'][team_2_idx] - Bat_OPS_range[0])/(Bat_OPS_range[1] - Bat_OPS_range[0])*100
+    ];
+    console.log(team_2_data);
+
+  
+    var data = [
+      {
+      type: 'scatterpolar',
+      r: team_1_data,
+      theta: ['Batting Average','On-base Percentage','Slugging Average', 'On-base + Slugging', 'Batting Average'],
+      fill: 'toself',
+      name: json['whole_name'][team_1_idx]
+      },
+      {
+      type: 'scatterpolar',
+      r: team_2_data,
+      theta: ['Batting Average','On-base Percentage','Slugging Average', 'On-base + Slugging', 'Batting Average'],
+      fill: 'toself',
+      name: json['whole_name'][team_2_idx]
+      }
+    ]
+    
+    var layout = {
+      polar: {
+        radialaxis: {
+          visible: true,
+          range: [0, 100]
+        }
+      }
+    }
+    
+    Plotly.newPlot("radarplot", data, layout)
+    
+    
   });
-  /*d3.json(team_url_1).then(function(data){
-    obj = JSON.parse(data);
-  });*/
-  console.log(test);
+}
+
+// bulid plot for batter
+function buildbatterplot(){
+  // Create the url for team stat
+  console.log("load team stat")
+  var team_url = "./baseballstat/batterstat.json";
+  console.log(team_url);
+  
+  //d3.select('#radarplot').html('');
+  
+  // clear any existing team info
+  d3.json(team_url).then(function(json){
+    console.log(json)
+    
+  });
 }
 
 
-
-
-function buildCharts(sample) {
-  // Create the url for sample data
-  const sample_url = "./samples/" + sample;  
-  console.log(sample_url);
+// bulid plot for batter
+function buildpitcherplot(){
+  // Create the url for team stat
+  console.log("load team stat")
+  var team_url = "./baseballstat/pitcherstat.json";
+  console.log(team_url);
+  
+  //d3.select('#radarplot').html('');
+  
+  // clear any existing team info
+  d3.json(team_url).then(function(json){
+    console.log(json)
+    team 
+  });
 }
+
 
 function init() {
   // Grab a reference to the dropdown select element
@@ -115,7 +197,7 @@ function init() {
     //buildCharts(FirstTeam);
     buildPanel1(FirstTeam);
     buildPanel2(SecondTeam);
-    packagedata(FirstTeam, SecondTeam);
+    buildradarplot(FirstTeam, SecondTeam);
     //console.log('in init FirstTeam');
     //console.log(showedteamnames);
     //console.log('in init SecondTeam');
