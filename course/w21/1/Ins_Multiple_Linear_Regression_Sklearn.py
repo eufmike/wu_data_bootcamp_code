@@ -4,27 +4,22 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-# %% [markdown]
-# # Multiple Linear Regression
-# %% [markdown]
+# %%
+# Multiple Linear Regression
 # Multiple Linear Regression simply means that you have 
 # more than one feature variable.
-# 
+
 # For the Housing Price example, you may have features 
 # like this:
-# 
 # $Y_i$ = $Bias_0$ + $Weight_1$ sq_feet + $Weight_2$ num_bedrooms + $Weight_3$ num_bathrooms
-# 
-# Note: The weights are how important each feature is to the equation. This is the part that the algorithm has to learn.
-#%% [markdown]
+# Note: The weights are how important each feature is to the equation. This is 
+# the part that the algorithm has to learn.
 # The generic formula is:
 # 
 # $Y_i = Bias_0 + Weight_1 Feature_1 + Weight_2 Feature_2 + \ldots + Weight_p Feature_p$
-#%% [markdown]
 # The equation is often written as:
-# 
 # $Y_i = \theta_0 + \theta_1 X_{i1} + \theta_2 X_{i2} + \ldots + \theta_p X_{ip}$
-#%% [markdown]
+
 # Generate a linear dataset with 3 features
 
 #%%

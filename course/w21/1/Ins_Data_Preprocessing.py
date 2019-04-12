@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-#%% [markdown]
+# %%
 # # Dataset:  brain_categorical.csv
 # 
 # Source: R.J. Gladstone (1905). "A Study of the Relations of the Brain to
@@ -30,14 +30,16 @@ import pandas as pd
 #%%
 # Read the csv file into a pandas DataFrame
 
-brain = pd.read_csv('/Volumes/MacProSSD2/code/wu_data_bootcamp_code/course/w21/1/Resources/brain_categorical.csv')
+brain = pd.read_csv('/Users/michaelshih/Documents/code/education/wu_data_bootcamp_code/course/w21/1/Resources/brain_categorical.csv')
 brain.head()
-
 
 #%%
 X = brain[["gender", "age", "size"]]
 y = brain["weight"].values.reshape(-1, 1)
 print(X.shape, y.shape)
+
+print(X)
+# %%
 
 #%% [markdown]
 # ## Working with Categorical Data
@@ -49,7 +51,7 @@ print(X.shape, y.shape)
 # model = LinearRegression()
 # model.fit(X, y)
 # ```
-#%% [markdown]
+
 # Machine Learning algorithms work with numerical data. We have to 
 # convert our strings into meaningful numbers. We often use Integer, 
 # One-hot, or Binary Encoding. Sklearn provides a preprocessing libarary 
@@ -57,13 +59,13 @@ print(X.shape, y.shape)
 # provides a `get_dummies` method that is useful to generate binary 
 # encoded data from a Data Frame. 
 
-#%% [markdown]
+
 # ## Dummy Encoding (Binary Encoded Data)
-#%% [markdown]
+
 # Dummy Encoding transforms each categorical feature into new columns 
 # with a 1 (True) or 0 (False) encoding to represent if that categorical 
 # label was present or not in the original row. 
-#%% [markdown]
+
 # Pandas provides a shortcut to create Binary Encoded data.
 
 #%%
